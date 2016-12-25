@@ -12,6 +12,7 @@ global.db = require('./db.js');
 
 
 var index = require('./controllers/index')
+var authors = require('./controllers/authors')
 var books = require('./controllers/books')
 
 var app = express()
@@ -45,7 +46,9 @@ app.use(flashMiddleware)
 global.requiredAuthentication = requiredAuthentication
 
 app.use('/', index)
+app.use('/authors', authors)
 app.use('/books', books)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

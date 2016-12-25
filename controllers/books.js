@@ -7,11 +7,15 @@ var debug = require('debug')('library:books')
 router.get('/', function(req, res, next) {
 
     Book.find(function(err, rows) {
-        res.render('pages/books', {rows: rows})
+        res.render('pages/books/index', {rows: rows})
     })
 })
 router.get('/add', function(req, res, next) {
 
+
+})
+
+router.post('/add', function(req, res, next) {
     var the_raven = new Book({
     name: 'The Raven',
     author: 'Edgar Allen Poe'
@@ -27,20 +31,6 @@ router.get('/add', function(req, res, next) {
     })
 })
 
-router.get('/addAuthor', function(req, res, next) {
 
-    var poe = new Author({
-        name: 'Edgar Allen Poe'
-    })
-
-    poe.save((err, product) => {
-        if (err)
-            debug(err)
-        else
-            debug(product)
-
-        res.redirect('/')
-    })
-})
 
 module.exports = router

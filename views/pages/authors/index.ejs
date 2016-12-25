@@ -1,0 +1,25 @@
+<% include ../../partials/header %>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <% for (var i = 0; i < rows.length; i++) { %>
+            <tr>
+                <td>
+                    <%= rows[i].name %>
+                </td>
+            </tr>
+        <% } %>
+
+    </tbody>
+</table>
+
+<a href='authors/add'>Add author</a>
+<% include ../../partials/footer %>

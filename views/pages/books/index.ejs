@@ -1,0 +1,27 @@
+<% include ../../partials/header %>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <% for (var i = 0; i < rows.length; i++) { %>
+            <tr>
+                <td>
+                    <%= rows[i].name %>
+                </td>
+                <td>
+                    <%= rows[i].author %>
+                </td>
+            </tr>
+        <% } %>
+
+    </tbody>
+</table>
+<% include ../../partials/footer %>
