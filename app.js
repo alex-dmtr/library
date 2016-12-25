@@ -8,11 +8,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
-// global.db = require('./db.js');
+global.db = require('./db.js');
 
 
 var index = require('./controllers/index')
-// var game = require('./routes/game')
+var books = require('./controllers/books')
 
 var app = express()
 
@@ -40,40 +40,12 @@ app.use(flash());
 
 
 
-app.use(function(req, res, next) {
-  console.log(req.session.user);
+app.use(flashMiddleware)
 
-  res.locals.user = req.session.user;
-  res.locals.error = req.flash('error');
-  res.locals.info = req.flash('info');
-  res.locals.success = req.flash('success');
+global.requiredAuthentication = requiredAuthentication
 
-  if (!res.locals.error)
-    delete res.locals.error;
-  if (!res.locals.info)
-    delete res.locals.info;
-  if (!res.locals.success)
-    delete res.locals.success;
-  // delete req.session.error;
-  // delete req.session.info;
-  // delete req.session.success;
-
-  // console.log(res.locals.info);
-  next();
-});
-
-global.requiredAuthentication = function requiredAuthentication(req, res, next) {
-  if (req.session.user)
-    next();
-  else
-  {
-    req.flash('info', 'You need to sign in first.');
-    res.redirect('/login');
-  }
-}
-
-app.use('/', index);
-// app.use('/game', game);
+app.use('/', index)
+app.use('/books', books)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -173,4 +145,37 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+}
+
+function flashMiddleware(req, res, next) {
+
+  // console.log(req.session.user);
+
+  res.locals.user = req.session.user;
+  res.locals.error = req.flash('error');
+  res.locals.info = req.flash('info');
+  res.locals.success = req.flash('success');
+
+  if (!res.locals.error)
+    delete res.locals.error;
+  if (!res.locals.info)
+    delete res.locals.info;
+  if (!res.locals.success)
+    delete res.locals.success;
+  // delete req.session.error;
+  // delete req.session.info;
+  // delete req.session.success;
+
+  // console.log(res.locals.info);
+  next();
+}
+
+function requiredAuthentication(req, res, next) {
+  if (req.session.user)
+    next();
+  else
+  {
+    req.flash('info', 'You need to sign in first.');
+    res.redirect('/login');
+  }
 }
