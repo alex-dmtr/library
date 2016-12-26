@@ -5,11 +5,16 @@ var debug = require('debug')('library:authors')
 
 router.get('/', function(req, res) {
 
-    Author.find(function(err, rows) {
+    var query = req.query.query
+
+    Author.find({name:query}).exec(function(err, rows) {
         if (err)
             debug(err)
         
-        res.render('pages/authors/index', {rows: rows})
+        if (rows.length == 1)
+            res.redirect('/authors/view?_id=' + rows[0]._id)
+        else
+            res.render('pages/authors/index', {rows: rows})
     })
 })
 
