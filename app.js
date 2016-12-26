@@ -11,7 +11,8 @@ var flash = require('connect-flash');
 global.db = require('./db.js');
 
 
-global.requiredAuthentication = requiredAuthentication
+global.requiredUser = requiredUser
+global.requiredAdmin = requiredAdmin
 
 var index = require('./controllers/index')
 var authors = require('./controllers/authors')
@@ -176,12 +177,21 @@ function flashMiddleware(req, res, next) {
   next()
 }
 
-function requiredAuthentication(req, res, next) {
+function requiredUser(req, res, next) {
   if (req.session.user)
     next();
   else
   {
     req.flash('info', 'You need to sign in first.');
     res.redirect('/users/signin');
+  }
+}
+
+function requiredAdmin(req, res, next) {
+  if (req.session.user && req.session.isAdmin)
+    next()
+  else {
+    req.flash('error', 'You do not have the required priviliges to access this page.')
+    res.redirect('/')
   }
 }

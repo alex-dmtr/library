@@ -11,9 +11,17 @@
                     <li><a href='/'>Home</a></li>
                     <li><a href='/authors'>Authors</a></li>
                     <li><a href='/books'>Books</a></li>
-                    <li><a href='/users'>Users</a></li>
                    
                     <hr/>
+
+                    <% if (user != null && user.isAdmin) { %>
+                    <li>Control Panel
+                        <ul>
+                            <li><a href='/users'>Users</a></li>                    
+                        </ul>
+                    </li>
+                    
+                    <% } %>
 
                     <% if (user == null) { %>
                     <li><a href='/users/signup'>Sign up</a></li>

@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
 var userSchema = Schema({
     email: String,
     hash: String,
-    name: String
+    name: String,
+    isAdmin: Boolean
 })
 
 var User = mongoose.model('User', userSchema)

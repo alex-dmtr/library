@@ -4,7 +4,7 @@ var User = require('../models/user')
 var bcrypt = require("bcrypt-nodejs")
 var debug = require('debug')('library:users')
 
-router.get('/', global.requiredAuthentication, function(req, res) {
+router.get('/', global.requiredAdmin, function(req, res) {
 
     User.find().exec(function(err, rows) {
         res.render('pages/users/index', {rows: rows})
@@ -28,6 +28,7 @@ router.post('/signup', function(req, res) {
                     email: req.body.email,
                     hash: hash,
                     name: req.body.name,
+                    isAdmin: false
                     })
 
                 newUser.save((err, product) => {
