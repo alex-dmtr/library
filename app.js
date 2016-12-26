@@ -189,7 +189,7 @@ function requiredUser(req, res, next) {
 }
 
 function requiredAdmin(req, res, next) {
-  if (req.session.user && req.session.user.isAdmin)
+  if (req.session.user && req.session.user.is_admin)
     next()
   else {
     req.flash('error', 'You do not have the required priviliges to access this page.')

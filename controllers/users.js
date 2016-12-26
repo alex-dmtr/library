@@ -27,8 +27,9 @@ router.post('/signup', function(req, res) {
                 var newUser = new User({
                     email: req.body.email,
                     hash: hash,
-                    name: req.body.name,
-                    isAdmin: false
+                    last_name: req.body.last_name,
+                    first_name: req.body.first_name,
+                    is_admin: false
                     })
 
                 newUser.save((err, product) => {

@@ -3,7 +3,7 @@
 <h1><%= book.name %></h1>
 <h2><%= book.author.name %></h2>
 
-<% if (user && user.isAdmin) { %>
+<% if (user && user.is_admin) { %>
     <a href='/books/edit?_id=<%=book._id%>'>Edit</a>
 <% } %>
 <% include ../../partials/footer %>
