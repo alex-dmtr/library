@@ -7,7 +7,8 @@ router.get('/', function(req, res) {
 
     var query = req.query.query
 
-    Author.find({name:query}).exec(function(err, rows) {
+    var regex = new RegExp(query, 'i')
+    Author.find({name:regex}).exec(function(err, rows) {
         if (err)
             debug(err)
         
