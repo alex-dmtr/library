@@ -1,0 +1,23 @@
+<% include ../../partials/header %>
+
+<form method="POST">
+    ID: <%=book.id%>
+    <br/>
+    Name: <input type='text' name='name' value='<%=book.name%>'>
+    <br/>
+    Author: 
+    <select name='author'>
+        <% for (var i = 0; i < authors.length; i++) { %>
+            <% if (book.author._id == authors[i]._id) { %>
+                <option selected value='<%=authors[i]._id%>'><%=authors[i].name%></option>
+            <% } else { %>
+                <option value='<%=authors[i]._id%>'><%=authors[i].name%></option>
+            <% } %>
+        <% } %>
+    </select>
+
+    Summary: <input type='text' name='summary' value='<%=book.summary%>'>
+    
+    <button type='submit'>Save</button>
+</form>
+<% include ../../partials/footer %>

@@ -162,6 +162,7 @@ function flashMiddleware(req, res, next) {
   res.locals.error = req.flash('error')
   res.locals.info = req.flash('info')
   res.locals.success = req.flash('success')
+  res.locals.query = ''
 
   if (!res.locals.error)
     delete res.locals.error
@@ -188,7 +189,7 @@ function requiredUser(req, res, next) {
 }
 
 function requiredAdmin(req, res, next) {
-  if (req.session.user && req.session.isAdmin)
+  if (req.session.user && req.session.user.isAdmin)
     next()
   else {
     req.flash('error', 'You do not have the required priviliges to access this page.')

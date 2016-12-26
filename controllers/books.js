@@ -3,11 +3,16 @@ var router = express.Router()
 var Book = require('../models/book')
 var Author = require('../models/author')
 var debug = require('debug')('library:books')
+var async = require('async')
 
 router.get('/', function(req, res, next) {
 
-    Book.find().populate('author').exec(function(err, rows) {
-        res.render('pages/books/index', {rows: rows})
+    var query = req.query.query ? req.query.query : ''
+
+    var regex = new RegExp(query, 'i')
+    debug(regex)
+    Book.find({name: regex}).populate('author').exec(function(err, rows) {
+        res.render('pages/books/index', {rows: rows, query: query})
     })
 })
 
@@ -17,6 +22,24 @@ router.get('/view', function(req, res) {
     Book.findById(id).populate('author').exec(function(err, doc) {
         res.render('pages/books/view', { book: doc})
     })
+})
+
+router.get('/edit', global.requiredAdmin, function(req, res) {
+    var id = req.query._id
+
+
+    async.series([
+        function(callback) {
+            Book.findById(id).populate('author').exec(callback)
+        },
+        function(callback) {
+            Author.find().exec(callback)
+        }],
+        function(err, results) {
+            res.render('pages/books/edit', { book: results[0], authors: results[1] })
+        }
+    )
+
 })
 
 router.get('/get', function(req, res, next) {

@@ -14,6 +14,11 @@
                    
                     <hr/>
 
+                    <form method='GET' action='/books/'>
+                        <input type='search' name='query' value='<%=query%>' autofocus>
+                        <button type='submit'>Search</button>
+                    </form>
+
                     <% if (user != null && user.isAdmin) { %>
                     <li>Control Panel
                         <ul>
