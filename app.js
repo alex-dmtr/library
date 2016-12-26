@@ -14,6 +14,7 @@ global.db = require('./db.js');
 var index = require('./controllers/index')
 var authors = require('./controllers/authors')
 var books = require('./controllers/books')
+var users = require('./controllers/users')
 
 var app = express()
 
@@ -48,6 +49,7 @@ global.requiredAuthentication = requiredAuthentication
 app.use('/', index)
 app.use('/authors', authors)
 app.use('/books', books)
+app.use('/users', users)
 
 
 // catch 404 and forward to error handler
@@ -154,23 +156,23 @@ function flashMiddleware(req, res, next) {
 
   // console.log(req.session.user);
 
-  res.locals.user = req.session.user;
-  res.locals.error = req.flash('error');
-  res.locals.info = req.flash('info');
-  res.locals.success = req.flash('success');
+  res.locals.user = req.session.user
+  res.locals.error = req.flash('error')
+  res.locals.info = req.flash('info')
+  res.locals.success = req.flash('success')
 
   if (!res.locals.error)
-    delete res.locals.error;
+    delete res.locals.error
   if (!res.locals.info)
-    delete res.locals.info;
+    delete res.locals.info
   if (!res.locals.success)
-    delete res.locals.success;
+    delete res.locals.success
   // delete req.session.error;
   // delete req.session.info;
   // delete req.session.success;
 
   // console.log(res.locals.info);
-  next();
+  next()
 }
 
 function requiredAuthentication(req, res, next) {

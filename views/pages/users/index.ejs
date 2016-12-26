@@ -1,0 +1,32 @@
+<% include ../../partials/header %>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Hash</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <% for (var i = 0; i < rows.length; i++) { %>
+            <tr>
+                <td>
+                    <%= rows[i].email %>
+                </td>
+                <td>
+                    <%= rows[i].name %>
+                </td>
+                <td>
+                    <%= rows[i].hash %>
+                </td>
+            </tr>
+        <% } %>
+
+    </tbody>
+</table>
+
+<% include ../../partials/footer %>

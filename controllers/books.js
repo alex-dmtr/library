@@ -53,7 +53,7 @@ router.post('/add', function(req, res, next) {
         else
             debug(product)
 
-        res.redirect('/')
+        res.redirect('/books')
     })
 })
 
