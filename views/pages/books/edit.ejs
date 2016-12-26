@@ -1,23 +1,54 @@
 <% include ../../partials/header %>
 
-<form method="POST">
-    ID: <%=book.id%>
-    <br/>
-    Name: <input type='text' name='name' value='<%=book.name%>'>
-    <br/>
-    Author: 
-    <select name='author'>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+
+<h2>Edit book <small><%=book.id%></small> </h2>
+
+
+<form method="POST" class='editform'>
+    <input type='hidden' value='<%=book.id%>' name='_id'>
+    <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input type='text' name='name' value='<%=book.name%>' class='form-control' required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="author">Author</label>
+        <select name='author' class='form-control'>
         <% for (var i = 0; i < authors.length; i++) { %>
-            <% if (book.author._id == authors[i]._id) { %>
+            <% if (book.author.name == authors[i].name) { %> <!--temporary workaround-->
                 <option selected value='<%=authors[i]._id%>'><%=authors[i].name%></option>
             <% } else { %>
                 <option value='<%=authors[i]._id%>'><%=authors[i].name%></option>
             <% } %>
         <% } %>
-    </select>
+        </select>
+    </div>
 
-    Summary: <textarea  name='summary'><%=book.summary%></textarea>
+    <div class="form-group">
+        <label for="summary">Summary</label>
+        <textarea id="summary" name='summary' class='form-control' rows='10'><%= book.summary %></textarea>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name='description' class='form-control' rows='10'><%= book.description %></textarea>
+    </div>
     
-    <button type='submit'>Save</button>
+    <button type='submit' class='btn btn-default'>Save</button>
 </form>
 <% include ../../partials/footer %>
+
+
+<script> 
+
+    $(document).ready(function() {
+
+        tinymce.init(
+            {
+                selector: '#summary',
+                font_formats: 'Georgia'
+            })
+        tinymce.init({selector: '#description'})
+        
+    })
+</script>

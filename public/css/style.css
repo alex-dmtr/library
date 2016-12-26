@@ -1,19 +1,19 @@
 body {
   /*padding-top: 50px;*/
 
-  font-family: Georgia, Arial;
+  font-family: Georgia, Arial;  
 }
 /*.starter-template {
   padding: 40px 15px;
   text-align: center;
 }*/
 
-.signupform, .signinform {
+.signupform, .signinform, .editform {
   margin: auto;
   max-width: 800px;
   padding: 10px;
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 2.5px;
+  /*border: 2px solid rgb(255, 255, 255);
+  border-radius: 2.5px;*/
 }
 
 #main-body {

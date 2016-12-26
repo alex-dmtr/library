@@ -42,6 +42,33 @@ router.get('/edit', global.requiredAdmin, function(req, res) {
 
 })
 
+router.post('/edit', global.requiredAdmin, function(req, res) {
+    Book.findById(req.body._id, function(err, book) {
+        if (err) {
+            debug(err)
+            req.flash('error', err)
+            res.redirect('/books/edit?_id=' + book.id)
+        } else {
+
+            book.name = req.body.name
+            book.author = req.body.author
+            book.summary = req.body.summary
+            book.description = req.body.description
+
+            book.save(function(err, updatedBook) {
+                if (err)
+                    req.flash('error', err)
+                else
+                    req.flash('success', 'Book saved')
+
+                debug(updatedBook)
+                res.redirect('/books/edit?_id=' + book.id)
+            })
+        }
+    })
+
+})
+
 router.get('/get', function(req, res, next) {
     var id = req.query._id
 
@@ -52,7 +79,7 @@ router.get('/get', function(req, res, next) {
             doc.author = author
             res.setHeader('Content-Type', 'application/json');
             res.send(doc)
-            
+
         })
     })
 })

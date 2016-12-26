@@ -83,13 +83,22 @@
     <div class="container">
 
         <% if (success.length > 0) { %>
-            <p><%=success%></p>
+            <div class='alert alert-success'>
+                <strong>Success</strong>
+                <p><%=success%></p>
+            </div>
         <% } %>
         <% if (info.length > 0) { %>
-            <p><%=info%></p>
+            <div class='alert alert-info'>
+                <strong>Info</strong>
+                <p><%=info%></p>
+            </div>
         <% } %>
         <% if (error.length > 0) { %>
-            <p><%=error%></p>
+            <div class='alert alert-danger'>
+                <strong>Error</strong>
+                <p><%=error%></p>
+            </div>
         <% } %>
 
         <div id='main-body'>

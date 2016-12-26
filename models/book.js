@@ -5,7 +5,11 @@ var mongoose = require('mongoose'),
 
 var bookSchema = mongoose.Schema({
     name: String,
-    author: { type: Schema.Types.ObjectId, ref: 'Author' }
+    author: { type: Schema.Types.ObjectId, ref: 'Author' },
+    summary: String,
+    description: String,
+    price: Number,
+    visible: Boolean
 })
 
 
