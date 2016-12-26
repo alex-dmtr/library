@@ -4,7 +4,7 @@ var User = require('../models/user')
 var bcrypt = require("bcrypt-nodejs")
 var debug = require('debug')('library:users')
 
-router.get('/', function(req, res) {
+router.get('/', global.requiredAuthentication, function(req, res) {
 
     User.find().exec(function(err, rows) {
         res.render('pages/users/index', {rows: rows})

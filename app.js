@@ -11,6 +11,8 @@ var flash = require('connect-flash');
 global.db = require('./db.js');
 
 
+global.requiredAuthentication = requiredAuthentication
+
 var index = require('./controllers/index')
 var authors = require('./controllers/authors')
 var books = require('./controllers/books')
@@ -44,7 +46,6 @@ app.use(flash());
 
 app.use(flashMiddleware)
 
-global.requiredAuthentication = requiredAuthentication
 
 app.use('/', index)
 app.use('/authors', authors)
@@ -181,6 +182,6 @@ function requiredAuthentication(req, res, next) {
   else
   {
     req.flash('info', 'You need to sign in first.');
-    res.redirect('/login');
+    res.redirect('/users/signin');
   }
 }
