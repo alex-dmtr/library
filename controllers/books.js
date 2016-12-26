@@ -10,10 +10,12 @@ router.get('/', function(req, res, next) {
         res.render('pages/books/index', {rows: rows})
     })
 })
-router.get('/add', function(req, res, next) {
 
-    Author.find(function(err, rows) {
-        res.render('pages/books/add', {authors: rows})
+router.get('/view', function(req, res) {
+    var id = req.query._id
+
+    Book.findById(id).populate('author').exec(function(err, doc) {
+        res.render('pages/books/view', { book: doc})
     })
 })
 
@@ -29,6 +31,13 @@ router.get('/get', function(req, res, next) {
             res.send(doc)
             
         })
+    })
+})
+
+router.get('/add', function(req, res, next) {
+
+    Author.find(function(err, rows) {
+        res.render('pages/books/add', {authors: rows})
     })
 })
 

@@ -14,10 +14,14 @@
         <% for (var i = 0; i < rows.length; i++) { %>
             <tr>
                 <td>
+                    <a href='books/view?_id=<%=rows[i]._id%>'>
                     <%= rows[i].name %>
+                    </a>
                 </td>
                 <td>
-                    <%= rows[i].author.name %>
+                    <a href='authors/view?_id=<%=rows[i].author._id%>'>
+                        <%= rows[i].author.name %>
+                    </a>
                 </td>
             </tr>
         <% } %>
