@@ -6,22 +6,39 @@ var debug = require('debug')('library:books')
 
 router.get('/', function(req, res, next) {
 
-    Book.find(function(err, rows) {
+    Book.find().populate('author').exec(function(err, rows) {
         res.render('pages/books/index', {rows: rows})
     })
 })
 router.get('/add', function(req, res, next) {
 
+    Author.find(function(err, rows) {
+        res.render('pages/books/add', {authors: rows})
+    })
+})
 
+router.get('/get', function(req, res, next) {
+    var id = req.query._id
+
+    Book.findById(id, function(err, doc) {
+
+        doc.getAuthor((err, author) => {
+
+            doc.author = author
+            res.setHeader('Content-Type', 'application/json');
+            res.send(doc)
+            
+        })
+    })
 })
 
 router.post('/add', function(req, res, next) {
-    var the_raven = new Book({
-    name: 'The Raven',
-    author: 'Edgar Allen Poe'
+    var newBook = new Book({
+    name: req.body.name,
+    author: req.body.author
     })
 
-    the_raven.save((err, product) => {
+    newBook.save((err, product) => {
         if (err)
             debug(err)
         else
@@ -30,6 +47,8 @@ router.post('/add', function(req, res, next) {
         res.redirect('/')
     })
 })
+
+
 
 
 

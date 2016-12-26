@@ -17,11 +17,13 @@
                     <%= rows[i].name %>
                 </td>
                 <td>
-                    <%= rows[i].author %>
+                    <%= rows[i].author.name %>
                 </td>
             </tr>
         <% } %>
 
     </tbody>
 </table>
+
+<a href='books/add'>Add book</a>
 <% include ../../partials/footer %>

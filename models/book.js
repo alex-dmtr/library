@@ -1,10 +1,11 @@
 var debug = require('debug')('library:book')
-var mongoose = require('mongoose')
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema
 
 
 var bookSchema = mongoose.Schema({
     name: String,
-    author: String
+    author: { type: Schema.Types.ObjectId, ref: 'Author' }
 })
 
 

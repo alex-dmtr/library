@@ -1,0 +1,13 @@
+<% include ../../partials/header %>
+
+<form method="POST">
+    Name: <input type='text' name='name'>
+    Author: 
+    <select name='author'>
+        <% for (var i = 0; i < authors.length; i++) { %>
+            <option value='<%=authors[i]._id%>'><%=authors[i].name%></option>
+        <% } %>
+    </select>
+    <button type='submit'>Submit</button>
+</form>
+<% include ../../partials/footer %>

@@ -19,11 +19,11 @@ router.get('/add', function(req, res, next) {
 router.post('/add', function(req, res, next) {
 
 
-    var poe = new Author({
+    var newAuthor = new Author({
         name: req.body.name
     })
 
-    poe.save((err, product) => {
+    newAuthor.save((err, product) => {
         if (err)
             debug(err)
         else
