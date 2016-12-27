@@ -1,5 +1,48 @@
 <% include ../../partials/header %>
 
-<h1><%= author.name %></h1>
+<div class='col-md-8'>
+    <h1><%= author.name %></h1>
+
+    <% if (user && user.is_admin) { %>
+        <div align='right'>
+            <button class='btn btn-default'><a href='/authors/edit?_id=<%=author._id%>'>Edit</a></button>
+        </div>
+    <% } %>
+
+    <%- author.summary %>
+
+    <h2>Bibliography</h2>
+    <hr/>
+
+    <ul>
+        <% for (var i = 0; i < books.length; i++) { %>
+            <li>
+                <a href='/books/view?_id=<%=books[i]._id%>'><i><%=books[i].name%></i></a>
+            </li>
+        <% } %>
+    </ul>
+
+</div>
+
+<div class='col-md-4'>
+    <table>
+        <tr>
+            <img class='img img-responsive' style='width:100%;' 
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/George_R._R._Martin_by_Gage_Skidmore_2.jpg/800px-George_R._R._Martin_by_Gage_Skidmore_2.jpg'>
+        </tr>
+
+        <tr>
+            <table class='table'>
+                <tr>
+                    <td>Name: </td>
+                    <td><%= author.name %></td>
+                </tr>
+            </table>
+        </tr>
+    </table>
+
+</div>
+
+
 
 <% include ../../partials/footer %>

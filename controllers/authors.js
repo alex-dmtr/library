@@ -1,7 +1,9 @@
 var express = require('express')
 var router = express.Router()
+var Book = require('../models/book')
 var Author = require('../models/author')
 var debug = require('debug')('library:authors')
+var async = require('async')
 
 router.get('/', function(req, res) {
 
@@ -22,9 +24,17 @@ router.get('/', function(req, res) {
 router.get('/view', function(req, res) {
     var id = req.query._id
 
-    Author.findById(id, function(err, doc) {
-        res.render('pages/authors/view', { author: doc})
-    })
+    async.series([
+        function(callback) {
+            Author.findById(id).exec(callback)
+        },
+        function(callback) {
+            Book.find({author:id}).exec(callback)
+        }
+    ],
+        function(err, results) {
+            res.render('pages/authors/view', {author: results[0], books: results[1]})
+    }) 
 })
 router.get('/add', function(req, res) {
     res.render('pages/authors/add')
@@ -46,4 +56,41 @@ router.post('/add', function(req, res) {
         res.redirect('/authors')
     })
 })
+
+router.get('/edit', global.requiredAdmin, function(req, res) {
+    var id = req.query._id
+
+
+
+    Author.findById(id).exec(function(err, results) {
+            res.render('pages/authors/edit', { author: results })
+        }
+    )
+})
+
+router.post('/edit', global.requiredAdmin, function(req, res) {
+    Author.findById(req.body._id, function(err, author) {
+        if (err) {
+            debug(err)
+            req.flash('error', err)
+            res.redirect('/authors/edit?_id=' + author._id)
+        } else {
+
+            author.name = req.body.name
+            author.summary = req.body.summary
+     
+            author.save(function(err, updatedAuthor) {
+                if (err)
+                    req.flash('error', err)
+                else
+                    req.flash('success', 'Author saved')
+
+                debug(updatedAuthor)
+                res.redirect('/authors/edit?_id=' + author._id)
+            })
+        }
+    })
+
+})
+
 module.exports = router

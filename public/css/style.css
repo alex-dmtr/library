@@ -8,6 +8,9 @@ body {
   text-align: center;
 }*/
 
+.container {
+  max-width: 800px;
+}
 .signupform, .signinform, .editform {
   margin: auto;
   max-width: 800px;

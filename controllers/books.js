@@ -47,7 +47,7 @@ router.post('/edit', global.requiredAdmin, function(req, res) {
         if (err) {
             debug(err)
             req.flash('error', err)
-            res.redirect('/books/edit?_id=' + book.id)
+            res.redirect('/books/edit?_id=' + book._id)
         } else {
 
             book.name = req.body.name
@@ -62,7 +62,7 @@ router.post('/edit', global.requiredAdmin, function(req, res) {
                     req.flash('success', 'Book saved')
 
                 debug(updatedBook)
-                res.redirect('/books/edit?_id=' + book.id)
+                res.redirect('/books/edit?_id=' + book._id)
             })
         }
     })
