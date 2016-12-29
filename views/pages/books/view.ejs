@@ -24,9 +24,15 @@
         </form>
     <% } %>
 
-    <% for (var i = 0; i < book.comments.length; i++) { %>
-        <h4><%= book.comments[i].user.last_name + ' ' + book.comments[i].user.first_name %></h4>
-        <p><%= book.comments[i].text %></p>
+    <% for (var i = 0; i < book.comments.length; i++) 
+        if (book.comments[i] != null)  {%>
+        <div id = '<%=book.comments[i] %>'>
+            <script>
+                $.get('<%=helpers.getCommentUrl(book.comments[i])%>', function(data) {
+                    $("#<%=book.comments[i]%>").html(data)
+                });
+            </script>
+        </div>
     <% } %>
 
 

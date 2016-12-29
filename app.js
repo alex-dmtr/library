@@ -14,14 +14,9 @@ global.db = require('./db.js');
 global.requiredUser = requiredUser
 global.requiredAdmin = requiredAdmin
 
-var index = require('./controllers/index')
-var authors = require('./controllers/authors')
-var books = require('./controllers/books')
-var users = require('./controllers/users')
-var comments = require('./controllers/comments')
-
 var app = express()
 
+setAppLocals()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -49,11 +44,21 @@ app.use(flash());
 app.use(flashMiddleware)
 
 
+
+var index = require('./controllers/index')(app)
+var authors = require('./controllers/authors')(app)
+var books = require('./controllers/books')(app)
+var users = require('./controllers/users')(app)
+var comments = require('./controllers/comments')(app)
+var search = require('./controllers/search')(app)
+
 app.use('/', index)
+
 app.use('/authors', authors)
 app.use('/books', books)
 app.use('/users', users)
 app.use('/comments', comments)
+app.use('/search', search)
 
 
 // catch 404 and forward to error handler
@@ -74,15 +79,7 @@ app.use(function(err, req, res, next) {
   res.render('pages/error');
 });
 
-module.exports = app;
-
-// global.db.connect(function(err) {
-//   if (err)
-//     console.log(err)
-//   else
-//     console.log("Connected to db")
-// })
-
+setAppLocals()
 
 // -- here starts bin/www
 
@@ -199,4 +196,22 @@ function requiredAdmin(req, res, next) {
     req.flash('error', 'You do not have the required priviliges to access this page.')
     res.redirect('/')
   }
+}
+
+function setAppLocals() {
+  
+  app.locals.helpers = {}
+
+  app.locals.helpers.getBookUrl = function (id) {
+    return '/books/' + id
+  }
+
+  app.locals.helpers.getAuthorUrl = function(id) {
+    return '/authors/' + id
+  }
+
+  app.locals.helpers.getCommentUrl = function(id) {
+    return '/comments/' + id
+  }
+  debug(app.locals.helpers)
 }
