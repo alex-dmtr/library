@@ -1,18 +1,16 @@
 var debug = require('debug')('library:book')
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
-
+  Schema = mongoose.Schema
 
 var bookSchema = mongoose.Schema({
-    name: String,
-    author: { type: Schema.Types.ObjectId, ref: 'Author' },
-    summary: String,
-    description: String,
-    price: Number,
-    visible: Boolean,
-    comments: [ { type: Schema.Types.ObjectId, ref: 'Comment' }]
+  name: String,
+  author: { type: Schema.Types.ObjectId, ref: 'Author' },
+  summary: String,
+  description: String,
+  price: Number,
+  visible: Boolean,
+  comments: [ { type: Schema.Types.ObjectId, ref: 'Comment' }]
 })
-
 
 var Book = mongoose.model('Book', bookSchema)
 

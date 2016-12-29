@@ -5,6 +5,6 @@ var debug = require('debug')('library:db')
 var db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function() {
-    debug('connected to database')
-}) 
+db.once('open', function () {
+  debug('connected to database')
+})

@@ -9,9 +9,9 @@
  */
 // Intended to prevent false-positive bug reports about Bootstrap not working properly in old versions of IE due to folks testing using IE's unreliable emulation modes.
 (function () {
-  'use strict';
+  'use strict'
 
-  function emulatedIEMajorVersion() {
+  function emulatedIEMajorVersion () {
     var groups = /MSIE ([0-9.]+)/.exec(window.navigator.userAgent)
     if (groups === null) {
       return null
@@ -21,7 +21,7 @@
     return ieMajorVersion
   }
 
-  function actualNonEmulatedIEMajorVersion() {
+  function actualNonEmulatedIEMajorVersion () {
     // Detects the actual version of IE in use, even if it's in an older-IE emulation mode.
     // IE JavaScript conditional compilation docs: https://msdn.microsoft.com/library/121hztk3%28v=vs.94%29.aspx
     // @cc_on docs: https://msdn.microsoft.com/library/8ka90k2e%28v=vs.94%29.aspx
@@ -48,4 +48,4 @@
   if (emulated !== nonEmulated) {
     window.alert('WARNING: You appear to be using IE' + nonEmulated + ' in IE' + emulated + ' emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON\'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!')
   }
-})();
+})()

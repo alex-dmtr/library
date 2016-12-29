@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "devDependencies": {
+    "standard": "*"
+  },
   "scripts": {
     "start": "node app.js",
     "test": "set DEBUG=library:* & nodemon app.js"

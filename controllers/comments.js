@@ -3,13 +3,12 @@ var router = express.Router()
 var Comment = require('../models/comment')
 var debug = require('debug')('library:comments')
 
-module.exports = function(app) {
-
-  router.get('/:id', function(req, res) {
+module.exports = function (app) {
+  router.get('/:id', function (req, res) {
     var id = req.params.id
 
     debug(id)
-    Comment.findById(id).populate('user').exec(function(err, comment) {
+    Comment.findById(id).populate('user').exec(function (err, comment) {
       debug(comment)
       res.render('partials/comment', {comment: comment})
     })
