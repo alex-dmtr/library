@@ -23,3 +23,7 @@ body {
   max-width: 800px;
   margin:auto;
 }
+
+.comment {
+  margin-bottom:10px;
+}

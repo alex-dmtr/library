@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var Book = require('../models/book')
 var Author = require('../models/author')
+var Comment = require('../models/comment')
 var debug = require('debug')('library:books')
 var async = require('async')
 
@@ -19,9 +20,38 @@ router.get('/', function(req, res, next) {
 router.get('/view', function(req, res) {
     var id = req.query._id
 
-    Book.findById(id).populate('author').exec(function(err, doc) {
+    Book.findById(id).populate('author comments').exec(function(err, doc) {
         res.render('pages/books/view', { book: doc})
     })
+})
+
+router.post('/view', global.requiredUser, function(req, res) {
+  var user_id = req.body.user_id
+  var book_id = req.body.book_id
+  var text = req.body.text
+
+  async.series([
+    function(callback) {
+      Book.findById(book_id).exec(callback)
+    },
+    function(callback) {
+      var comment = new Comment({ user: user_id, text: text })
+      comment.save(callback)
+    }
+  ], function(err, results) {
+    var book = results[0]
+    var comment = results[1]
+
+    if (book.comments == null)
+      book.comments = []
+
+    book.comments.push(comment._id)
+
+    book.save(function(err, book) {
+      req.flash('success', 'Comment posted succesfully')
+      res.redirect('/books/view?_id=' + book._id)
+    })
+  })
 })
 
 router.get('/edit', global.requiredAdmin, function(req, res) {

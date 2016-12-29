@@ -64,6 +64,8 @@ router.post('/signin', function(req, res) {
                    res.redirect('/users/signin')
                }
                else {
+                   debug(doc)
+                   debug(doc.getName())
                    req.session.user = doc
                    req.flash('success', 'Sign in succesful')
                    res.redirect('/')

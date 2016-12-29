@@ -9,7 +9,8 @@ var bookSchema = mongoose.Schema({
     summary: String,
     description: String,
     price: Number,
-    visible: Boolean
+    visible: Boolean,
+    comments: [ { type: Schema.Types.ObjectId, ref: 'Comment' }]
 })
 
 

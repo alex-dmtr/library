@@ -3,11 +3,6 @@
 <div class='col-md-8'>
     <h1><%= author.name %></h1>
 
-    <% if (user && user.is_admin) { %>
-        <div align='right'>
-            <button class='btn btn-default'><a href='/authors/edit?_id=<%=author._id%>'>Edit</a></button>
-        </div>
-    <% } %>
 
     <%- author.summary %>
 
@@ -37,6 +32,16 @@
                     <td>Name: </td>
                     <td><%= author.name %></td>
                 </tr>
+
+                    <% if (user && user.is_admin) { %>
+                    <tr >
+                        <td colspan='2'>
+                        <div align='center'>
+                            <a href='/authors/edit?_id=<%=author._id%>' class='btn btn-default form-control'>Edit</a>
+                        </div>
+                    <% } %>
+                        </td>
+                    </tr>
             </table>
         </tr>
     </table>

@@ -11,6 +11,25 @@
     <hr/>
 
     <%- book.description %>
+
+    <h3>Comments</h3>
+    <hr/>
+
+    <% if (user != null) { %>
+        <form method='POST'>
+            <input type='hidden' name='user_id' value='<%= user._id %>'>
+            <input type='hidden' name='book_id' value='<%= book._id %>'>
+            <textarea class='form-control comment' name='text'></textarea>  
+            <button class='btn btn-primary' type='submit'>Add comment</button>
+        </form>
+    <% } %>
+
+    <% for (var i = 0; i < book.comments.length; i++) { %>
+        <h4><%= book.comments[i].user.last_name + ' ' + book.comments[i].user.first_name %></h4>
+        <p><%= book.comments[i].text %></p>
+    <% } %>
+
+
 </div>
 
 <div class='col-md-4'>
@@ -34,14 +53,21 @@
                     <td>Price: </td>
                     <Td><%= book.price %></td>
                 </tr>
+                <tr>
+                    <% if (user && user.is_admin) { %>
+                    <tr >
+                        <td colspan='2'>
+                        <div align='center'>
+                            <a href='/books/edit?_id=<%=book._id%>' class='btn btn-default form-control'>Edit</a>
+                        </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tr>
             </table>
         </tr>
     </table>
 
 </div>
-
-<% if (user && user.is_admin) { %>
-    <a href='/books/edit?_id=<%=book._id%>'>Edit</a>
-<% } %>
 
 <% include ../../partials/footer %>

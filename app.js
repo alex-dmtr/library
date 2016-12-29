@@ -18,6 +18,7 @@ var index = require('./controllers/index')
 var authors = require('./controllers/authors')
 var books = require('./controllers/books')
 var users = require('./controllers/users')
+var comments = require('./controllers/comments')
 
 var app = express()
 
@@ -52,6 +53,7 @@ app.use('/', index)
 app.use('/authors', authors)
 app.use('/books', books)
 app.use('/users', users)
+app.use('/comments', comments)
 
 
 // catch 404 and forward to error handler
@@ -159,6 +161,8 @@ function flashMiddleware(req, res, next) {
   // console.log(req.session.user);
 
   res.locals.user = req.session.user
+  // if (res.locals.user)
+  //   res.locals.user_name = res.locals.user.getName()
   res.locals.error = req.flash('error')
   res.locals.info = req.flash('info')
   res.locals.success = req.flash('success')

@@ -9,6 +9,10 @@ var userSchema = Schema({
     is_admin: Boolean
 })
 
+userSchema.methods.getName = function() {
+    return this.last_name + ' ' + this.first_name
+}
+
 var User = mongoose.model('User', userSchema)
 
 module.exports = User
