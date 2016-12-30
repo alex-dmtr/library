@@ -28,6 +28,15 @@ module.exports = function (app) {
     })
   })
 
+  router.get('/:id/json', function(req, res) {
+    var id = req.params.id
+
+    Book.findById(id).populate('author').exec(function (err, doc) {
+      res.setHeaderType('Content-Type', 'application/json')
+      res.send(doc)
+    }
+  })
+
   router.post('/:id', global.requiredUser, function (req, res) {
     var user_id = req.body.user_id
     var book_id = req.body.book_id

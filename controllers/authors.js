@@ -64,6 +64,15 @@ module.exports = function (app) {
         })
   })
 
+  router.get('/:id/json', function(req, res) {
+    var id = req.params.id
+
+    Author.findById(id).exec(function (err, doc) {
+      res.setHeaderType('Content-Type', 'application/json')
+      res.send(doc)
+    }
+  })
+
   router.get('/:id/edit', global.requiredAdmin, function (req, res) {
     var id = req.params.id
 
