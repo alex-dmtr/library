@@ -70,7 +70,7 @@ module.exports = function (app) {
     Author.findById(id).exec(function (err, doc) {
       res.setHeaderType('Content-Type', 'application/json')
       res.send(doc)
-    }
+    })
   })
 
   router.get('/:id/edit', global.requiredAdmin, function (req, res) {

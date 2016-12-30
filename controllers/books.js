@@ -34,7 +34,7 @@ module.exports = function (app) {
     Book.findById(id).populate('author').exec(function (err, doc) {
       res.setHeaderType('Content-Type', 'application/json')
       res.send(doc)
-    }
+    })
   })
 
   router.post('/:id', global.requiredUser, function (req, res) {
