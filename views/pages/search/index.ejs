@@ -10,12 +10,24 @@
     success: display
   })
 
+  function getAuthorLink(author) {
+    var url = "/authors/" + author._id
+
+    return "<a href='" + url + "'>" + author.name + "</a>"
+  }
+
+  function getBookLink(book) {
+    var url = "/books/" + book._id
+
+    return "<a href='" + url + "'>" + book.name + "</a>"
+  }
+
   function display(data) {
     if (data.authors.length > 0) {
       $("#authors").show()
 
       data.authors.forEach(function(author) {
-        $("#authors").append(author.name)
+        $("#authors").append(getAuthorLink(author))
       })  
     }
     else
@@ -26,7 +38,7 @@
       $("#books").show()
 
       data.books.forEach(function(book) {
-        $("#books").append(book.name)
+        $("#books").append(getBookLink(book))
       })
     }
     else
