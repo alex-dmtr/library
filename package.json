@@ -7,8 +7,8 @@
     "standard": "*"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "set DEBUG=library:* & nodemon app.js"
+    "test": "set DEBUG=library:* & nodemon app.js",
+    "start": "node app.js"
   },
   "author": "Alex Dumitru",
   "license": "ISC",

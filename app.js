@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(session({secret: 'cats'}))
+app.use(session({secret: 'cats', resave: false, saveUninitialized: false}))
 app.use(flash())
 // app.set('trust proxy', 1) // trust first proxy
 // app.use(session({
@@ -40,20 +40,9 @@ app.use(flash())
 
 app.use(flashMiddleware)
 
-var index = require('./controllers/index')(app)
-var authors = require('./controllers/authors')(app)
-var books = require('./controllers/books')(app)
-var users = require('./controllers/users')(app)
-var comments = require('./controllers/comments')(app)
-var search = require('./controllers/search')(app)
+var routes = require('./routes')
 
-app.use('/', index)
-
-app.use('/authors', authors)
-app.use('/books', books)
-app.use('/users', users)
-app.use('/comments', comments)
-app.use('/search', search)
+app.use('/', routes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -204,5 +193,5 @@ function setAppLocals () {
   app.locals.helpers.getCommentUrl = function (id) {
     return '/comments/' + id
   }
-  debug(app.locals.helpers)
+  // debug(app.locals.helpers)
 }
