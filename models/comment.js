@@ -4,7 +4,9 @@ var Schema = mongoose.Schema
 
 var commentSchema = {
   user: { type: Schema.Types.ObjectId, ref: 'User'},
-  text: String
+  text: String,
+  book: { type: Schema.Types.ObjectId, ref: 'Book'},
+  author: { type: Schema.Types.ObjectId, ref: 'Author'}
 }
 
 var Comment = mongoose.model('Comment', commentSchema)

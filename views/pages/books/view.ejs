@@ -5,10 +5,48 @@
 
 
     function start() {
-        var book_id = <%= book._id %>
-
-
+        var book_id = "<%= book._id %>"
+        var url = '/api/books/' + book_id + '/comments'
+        $.ajax({
+            url: url, 
+            success: loadComments
+        })
     }
+
+    function loadComments(data) {
+        console.log(data)
+        $("#comments").empty()
+        $.each(data, loadComment)
+    }
+
+    function loadComment(index, comment) {
+        var html = "<div id='comment_" + comment._id + "'>"
+
+        html += "<strong class='user_" + comment.user + "'></strong>"
+
+        html += "<p>" + comment.text + "</p>"
+
+        $("#comments").append(html)
+
+        var user_id = comment.user
+
+        var url = '/api/users/' + user_id
+
+        $.ajax({
+            url: url,
+            success: loadUser
+        })
+    }
+
+    function loadUser(user) {
+        var query = '.user_' + user._id
+
+        var html = user.first_name + ' ' + user.last_name
+
+        $(query).html(html)
+    }
+
+
 </script>
 <div class='col-md-8'>
     <h1 id='name'><%= book.name %> </h1>
@@ -17,13 +55,18 @@
     <%- book.summary %>
 
     <h3 id='description'>Description</h3>
-    <hr/>
+    <!--<hr/>-->
 
     <%- book.description %>
 
     <h3>Comments</h3>
-    <hr/>
+    <!--<hr/>-->
 
+    <div id='comments' style='padding-top:20px'>
+
+    </div>
+
+    
     <% if (user != null) { %>
         <form method='POST'>
             <input type='hidden' name='user_id' value='<%= user._id %>'>
@@ -32,10 +75,6 @@
             <button class='btn btn-primary' type='submit'>Add comment</button>
         </form>
     <% } %>
-
-    <div id='comments'>
-
-        </div>
 
 </div>
 

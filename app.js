@@ -183,9 +183,6 @@ function requiredAdmin (req, res, next) {
 }
 
 function setAppLocals () {
-  app.locals.helpers = {}
-
-
 
   function getBookUrl(id) {
     return '/books/' + id
@@ -215,12 +212,14 @@ function setAppLocals () {
     return '/books/' + id + '/edit'
   }
 
-  app.locals.helpers.getBookUrl = getBookUrl
-  app.locals.helpers.getAuthorUrl = getAuthorUrl
-  app.locals.helpers.getCommentUrl = getCommentUrl
-  app.locals.helpers.getAuthorLink = getAuthorLink
-  app.locals.helpers.getBookLink = getBookLink
-  app.locals.helpers.getAuthorEditUrl = getAuthorEditUrl
-  app.locals.helpers.getBookEditUrl = getBookEditUrl
+  app.locals.helpers = {
+    getBookUrl,
+    getAuthorUrl,
+    getCommentUrl,
+    getAuthorLink,
+    getBookLink,
+    getAuthorEditUrl,
+    getBookEditUrl
+  }
   // debug(app.locals.helpers)
 }

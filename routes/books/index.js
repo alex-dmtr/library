@@ -29,26 +29,16 @@ router.post('/:id', global.requiredUser, function (req, res) {
 
   async.series([
     function (callback) {
-      Book.findById(book_id).exec(callback)
-    },
-    function (callback) {
-      var comment = new Comment({ user: user_id, text: text })
+      var comment = new Comment({ user: user_id, text: text, book: book_id })
       comment.save(callback)
     }
   ], function (err, results) {
-    var book = results[0]
-    var comment = results[1][0]
+    var comment = results[0]
     debug(comment)
-    if (book.comments == null) {
-      book.comments = []
-    }
+   
 
-    book.comments.push(comment._id)
-
-    book.save(function (err, book) {
-      req.flash('success', 'Comment posted succesfully')
-      res.redirect(helpers.getBookUrl(book._id))
-    })
+    req.flash('success', 'Comment posted succesfully')
+    res.redirect(res.locals.helpers.getBookUrl(book_id))
   })
 })
 
