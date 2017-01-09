@@ -8,12 +8,15 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var flash = require('connect-flash')
+var helmet = require('helmet')
 global.db = require('./db.js')
 
 global.requiredUser = requiredUser
 global.requiredAdmin = requiredAdmin
 
 var app = express()
+
+app.use(helmet())
 
 setAppLocals()
 // view engine setup
