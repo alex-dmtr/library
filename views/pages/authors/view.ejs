@@ -12,7 +12,7 @@
     <ul>
         <% for (var i = 0; i < books.length; i++) { %>
             <li>
-                <a href='/books/view?_id=<%=books[i]._id%>'><i><%=books[i].name%></i></a>
+                <i><%- helpers.getBookLink(books[i])%></i>
             </li>
         <% } %>
     </ul>

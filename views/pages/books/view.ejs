@@ -1,13 +1,22 @@
 <% include ../../partials/header %>
 
+<script>
+    $(document).ready(start)
 
+
+    function start() {
+        var book_id = <%= book._id %>
+
+
+    }
+</script>
 <div class='col-md-8'>
-    <h1><%= book.name %> </h1>
-    <h4><i><%= book.author.name %></i></h4>
+    <h1 id='name'><%= book.name %> </h1>
+    <h4 id='author_name'><i><%= book.author.name %></i></h4>
 
     <%- book.summary %>
 
-    <h3>Description</h3>
+    <h3 id='description'>Description</h3>
     <hr/>
 
     <%- book.description %>
@@ -24,17 +33,9 @@
         </form>
     <% } %>
 
-    <% for (var i = 0; i < book.comments.length; i++) 
-        if (book.comments[i] != null)  {%>
-        <div id = '<%=book.comments[i] %>'>
-            <script>
-                $.get('<%=helpers.getCommentUrl(book.comments[i])%>', function(data) {
-                    $("#<%=book.comments[i]%>").html(data)
-                });
-            </script>
-        </div>
-    <% } %>
+    <div id='comments'>
 
+        </div>
 
 </div>
 
@@ -53,7 +54,7 @@
                 </tr>
                 <tr>
                     <td>Author: </td>
-                    <td><a href='/authors/view?_id=<%=book.author._id%>'><%= book.author.name %></a></td>
+                    <td><%- helpers.getAuthorLink(book.author) %> </td>
                 </tr>
                 <tr>
                     <td>Price: </td>
@@ -64,7 +65,7 @@
                     <tr >
                         <td colspan='2'>
                         <div align='center'>
-                            <a href='/books/edit?_id=<%=book._id%>' class='btn btn-default form-control'>Edit</a>
+                            <a href='<%= helpers.getBookEditUrl(book._id)%>' class='btn btn-default form-control'>Edit</a>
                         </div>
                         </td>
                     </tr>

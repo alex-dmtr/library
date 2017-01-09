@@ -42,6 +42,7 @@ app.use(flashMiddleware)
 
 var routes = require('./routes')
 
+
 app.use('/', routes)
 
 // catch 404 and forward to error handler
@@ -139,6 +140,8 @@ function flashMiddleware (req, res, next) {
   // console.log(req.session.user);
 
   res.locals.user = req.session.user
+  res.locals.helpers = app.locals.helpers
+  
   // if (res.locals.user)
   //   res.locals.user_name = res.locals.user.getName()
   res.locals.error = req.flash('error')
@@ -182,16 +185,42 @@ function requiredAdmin (req, res, next) {
 function setAppLocals () {
   app.locals.helpers = {}
 
-  app.locals.helpers.getBookUrl = function (id) {
+
+
+  function getBookUrl(id) {
     return '/books/' + id
   }
 
-  app.locals.helpers.getAuthorUrl = function (id) {
+  function getAuthorUrl(id) {
     return '/authors/' + id
   }
 
-  app.locals.helpers.getCommentUrl = function (id) {
+  function getCommentUrl(id) {
     return '/comments/' + id
   }
+
+  function getAuthorLink(author) {
+    return "<a href='" + getAuthorUrl(author._id) + "'>" + author.name + "</a>"
+  }
+
+  function getBookLink(book) {
+    return "<a href='" + getBookUrl(book._id) + "'>" + book.name + "</a>"
+  }
+
+  function getAuthorEditUrl(id) {
+    return '/authors/' + id + '/edit'
+  }
+
+  function getBookEditUrl(id) {
+    return '/books/' + id + '/edit'
+  }
+
+  app.locals.helpers.getBookUrl = getBookUrl
+  app.locals.helpers.getAuthorUrl = getAuthorUrl
+  app.locals.helpers.getCommentUrl = getCommentUrl
+  app.locals.helpers.getAuthorLink = getAuthorLink
+  app.locals.helpers.getBookLink = getBookLink
+  app.locals.helpers.getAuthorEditUrl = getAuthorEditUrl
+  app.locals.helpers.getBookEditUrl = getBookEditUrl
   // debug(app.locals.helpers)
 }

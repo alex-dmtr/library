@@ -24,7 +24,7 @@
   }
 
   function display(data) {
-    if (data.authors.length > 0) {
+    if (data.authors.length > 0 && (query.type == null || query.type == 'author')) {
       $("#authors").show()
 
       data.authors.forEach(function(author) {
@@ -35,7 +35,7 @@
       $("#authors").hide()
   
 
-    if (data.books.length > 0) {
+    if (data.books.length > 0 && (query.type == null || query.type == 'book')) {
       $("#books").show()
 
       data.books.forEach(function(book) {
