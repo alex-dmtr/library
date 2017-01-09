@@ -8,8 +8,8 @@ var bookSchema = mongoose.Schema({
   summary: String,
   description: String,
   price: Number,
-  visible: Boolean,
-  comments: [ { type: Schema.Types.ObjectId, ref: 'Comment' }]
+  release_date: Date,
+  visible: Boolean
 })
 
 var Book = mongoose.model('Book', bookSchema)

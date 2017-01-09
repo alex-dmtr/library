@@ -55,7 +55,7 @@
     <%- book.summary %>
 
     <h3 id='description'>Description</h3>
-    <!--<hr/>-->
+    <hr/>
 
     <%- book.description %>
 
@@ -74,6 +74,8 @@
             <textarea class='form-control comment' name='text'></textarea>  
             <button class='btn btn-primary' type='submit'>Add comment</button>
         </form>
+    <% } else { %>
+        <em><a href='/users/signin'>Sign in</a> to add your own comments.</em>
     <% } %>
 
 </div>
@@ -97,7 +99,11 @@
                 </tr>
                 <tr>
                     <td>Price: </td>
-                    <Td><%= book.price %></td>
+                    <td><%= book.price %></td>
+                </tr>
+                <tr>
+                    <td>Release date: </td>
+                    <td><%= book.release_date.toLocaleDateString() %></td>
                 </tr>
                 <tr>
                     <% if (user && user.is_admin) { %>

@@ -69,6 +69,8 @@ router.post('/:id/edit', global.requiredAdmin, function (req, res) {
       book.author = req.body.author
       book.summary = req.body.summary
       book.description = req.body.description
+      book.release_date = req.body.release_date
+      book.price = req.body.price
 
       book.save(function (err, updatedBook) {
         if (err) { req.flash('error', err) } else { req.flash('success', 'Book saved') }
