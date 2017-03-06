@@ -75,7 +75,7 @@ router.post('/:id/edit', global.requiredAdmin, function (req, res) {
     if (err) {
       debug(err)
       req.flash('error', err)
-      res.redirect('/authors/edit?_id=' + author._id)
+      res.redirect('/authors/' + author._id + '/edit')
     } else {
       author.name = req.body.name
       author.summary = req.body.summary
@@ -88,7 +88,7 @@ router.post('/:id/edit', global.requiredAdmin, function (req, res) {
         }
 
         debug(updatedAuthor)
-        res.redirect('/authors/edit?_id=' + author._id)
+        res.redirect('/authors/' + author._id + '/edit')
       })
     }
   })

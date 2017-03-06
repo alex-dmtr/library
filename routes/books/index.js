@@ -12,6 +12,27 @@ router.get('/', function(req, res) {
   res.redirect('/search?type=book')
 })
 
+router.get('/add', global.requiredAdmin, function (req, res, next) {
+  Author.find(function (err, rows) {
+    res.render('pages/books/add', {authors: rows})
+  })
+})
+
+router.post('/add', global.requiredAdmin, function (req, res, next) {
+  var newBook = new Book({
+    name: req.body.name,
+    author: req.body.author,
+    release_date: new Date()
+  })
+
+  newBook.save((err, product) => {
+    if (err) { debug(err) } else {
+      debug(product)
+    }
+
+    res.redirect('/books')
+  })
+})
 
 router.get('/:id', function (req, res) {
   var id = req.params.id
@@ -76,31 +97,12 @@ router.post('/:id/edit', global.requiredAdmin, function (req, res) {
         if (err) { req.flash('error', err) } else { req.flash('success', 'Book saved') }
 
         debug(updatedBook)
-        res.redirect('/books/edit?_id=' + book._id)
+        res.redirect('/books/' + book._id + '/edit')
       })
     }
   })
 })
 
-router.get('/add', function (req, res, next) {
-  Author.find(function (err, rows) {
-    res.render('pages/books/add', {authors: rows})
-  })
-})
 
-router.post('/add', function (req, res, next) {
-  var newBook = new Book({
-    name: req.body.name,
-    author: req.body.author
-  })
-
-  newBook.save((err, product) => {
-    if (err) { debug(err) } else {
-      debug(product)
-    }
-
-    res.redirect('/books')
-  })
-})
 
 module.exports = router

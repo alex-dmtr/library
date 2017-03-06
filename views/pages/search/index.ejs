@@ -59,6 +59,11 @@
   <h2>Authors</h2>
 
 </div>
+
+<% if (user != null && user.is_admin) { %>
+  <a href='/authors/add' class='btn btn-primary'>Add author</a>
+  <a href='/books/add' class='btn btn-primary'>Add book</a>
+<% } %>
 <% include ../../partials/footer %>
 
 
