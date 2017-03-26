@@ -1,10 +1,12 @@
 var express = require('express')
 var router = express.Router()
 
-router.get('/authors/:author_id', require('./getAuthor'))
-router.get('/books/:book_id/comments', require('./getBookComments'))
-router.get('/users/:user_id', require('./getUser'))
-router.get('/search', require('./search'))
+router.use('/authors', require('./authors'))
+router.use('/books', require('./books'))
+// router.get('/authors/:author_id', require('./getAuthor'))
+// router.get('/books/:book_id/comments', require('./getBookComments'))
+// router.get('/users/:user_id', require('./getUser'))
+// router.get('/search', require('./search'))
 
 
 

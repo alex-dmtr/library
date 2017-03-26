@@ -1,3 +1,16 @@
+var Promise = require('bluebird')
+var mongoose = require('mongoose')
+mongoose.Promise = Promise
+mongoose.connect('mongodb://localhost/library')
+var debug = require('debug')('library:db')
+
+var db = mongoose.connection
+
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function () {
+  debug('connected to database')
+})
+
 var Author = require('./author.js')
 var Book = require('./book.js')
 var Comment = require('./comment.js')

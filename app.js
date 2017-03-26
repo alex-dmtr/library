@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var flash = require('connect-flash')
 var helmet = require('helmet')
-global.db = require('./db.js')
+var models = require('./models')
 
 global.requiredUser = requiredUser
 global.requiredAdmin = requiredAdmin
@@ -226,3 +226,5 @@ function setAppLocals () {
   }
   // debug(app.locals.helpers)
 }
+
+module.exports = app
