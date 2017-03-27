@@ -49,10 +49,44 @@ context('API', () => {
         })
     })
 
+    it('should get the author', function() {
+      return request(app)
+        .get(`/api/authors/${author._id}`)
+        .expect(200)
+        .expect(author)
+    })
+
+    it('should delete the author', function() {
+      return request(app)
+        .delete(`/api/authors/${author._id}`)
+        .expect(200)
+    })
+
 
   })
   
   context('books', () => {
+
+    let book = {
+      name: "The Tragedy of Darth Plagueis the Wise",
+      summary: "It's not a story the Jedi would tell you",
+      description: "He could save others from death, but not himself."
+    }
+
+    it('should insert a book', (done) => {
+      request(app)
+        .post('/api/books')
+        .send(book)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err)
+
+          Object.keys(book).forEach((key) => assert.equal(book[key], res.body[key]))
+
+          book = res.body
+          done()
+        })
+    })
     it('should return [] of books', (done) => {
       request(app)
         .get('/api/books')
@@ -63,6 +97,19 @@ context('API', () => {
 
           done()
         })
+    })
+
+    it('should get the book', function() {
+      return request(app)
+        .get(`/api/books/${book._id}`)
+        .expect(200)
+        .expect(book)
+    })
+
+    it('should delete the book', function() {
+      return request(app)
+        .delete(`/api/books/${book._id}`)
+        .expect(200)
     })
   })
 })
