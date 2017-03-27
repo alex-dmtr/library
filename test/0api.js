@@ -28,23 +28,23 @@ context('API', () => {
         .end(function(err, res) {
           if (err) return done(err)
 
-          assert.equal(res.body.name, author.name)
-          assert.equal(res.body.summary, author.summary)
+          Object.keys(author).forEach((key) => assert.equal(author[key], res.body[key]))
 
           author = res.body
           done()
         })
     })
 
-    it('should return [] of authors', (done) => {
+    it('should return [newAuthor] of authors', (done) => {
       request(app)
         .get('/api/authors')
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err)
 
-          assert.equal(res.body.length, 1)
-          assert.deepEqual(res.body[0], author)
+          let foundAuthor = res.body.find(a => a._id === author._id)
+
+          assert.deepEqual(foundAuthor, author)
           done()
         })
     })
@@ -87,14 +87,17 @@ context('API', () => {
           done()
         })
     })
-    it('should return [] of books', (done) => {
+    it('should return [newBook] of books', (done) => {
       request(app)
         .get('/api/books')
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err)
 
+          let foundBook = res.body.find(b => b._id === book._id)
 
+          assert.deepEqual(foundBook, book)
+         
           done()
         })
     })
