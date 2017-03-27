@@ -5,6 +5,8 @@ var Book = require('../../models/book')
 router.get('/', function(req, res) {
   Book
     .find()
+    .populate('author')
+    .lean()
     .then(function(books) {
       res.status(200).json(books)
     })

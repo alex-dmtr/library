@@ -7,8 +7,8 @@
     "standard": "*"
   },
   "scripts": {
-    "test": "mocha",
-    "start": "set DEBUG=library:* & nodemon app.js"
+    "test": "gulp test",
+    "start": "gulp"
   },
   "author": "Alex Dumitru",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
+    "gulp": "^3.9.1",
     "helmet": "^3.3.0",
     "http": "0.0.0",
     "mongoose": "^4.7.4",

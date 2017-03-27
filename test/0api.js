@@ -28,7 +28,7 @@ context('API', () => {
         .end(function(err, res) {
           if (err) return done(err)
 
-          Object.keys(author).forEach((key) => assert.equal(author[key], res.body[key]))
+          Object.keys(author).forEach(key => assert.equal(author[key], res.body[key]))
 
           author = res.body
           done()
@@ -81,7 +81,7 @@ context('API', () => {
         .end(function(err, res) {
           if (err) return done(err)
 
-          Object.keys(book).forEach((key) => assert.equal(book[key], res.body[key]))
+          Object.keys(book).forEach(key => assert.equal(book[key], res.body[key]))
 
           book = res.body
           done()

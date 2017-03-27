@@ -39,12 +39,21 @@ function search (obj, cb) {
     }
   )
 }
+
+function truncate() {
+   return Author.remove({}).then(function() {
+      return Book.remove({})
+    })
+}
+
 module.exports = {
 
-  Author: Author,
-  Book: Book,
-  Comment: Comment,
-  User: User,
+  Author,
+  Book,
+  Comment,
+  User,
 
-  search: search
+  search,
+  truncate,
+  seed: require('./seed')({Author, Book})
 }
