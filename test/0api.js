@@ -7,12 +7,6 @@ var Book = require('../models/book')
 
 context('API', () => {
 
-  before(function() {
-    return Author.remove({}).then(function() {
-      return Book.remove({})
-    })
-  })
-
 
   context('authors', () => {
 

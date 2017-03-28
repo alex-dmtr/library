@@ -8,8 +8,9 @@ gulp.task('seed', function() {
 
     return models
       .truncate()
-      .then(() => 
-        models.seed()
+      .then(() => {
+        return models.seed()
+      }
       )
 })
 
